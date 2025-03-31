@@ -14,7 +14,7 @@ class Customer {
     //Creating a function that adds a purchase to a customer purchase history array.
     addPurchase(amount) {
 
-        //Using push to add the purachse to the purchase history array.
+        //Using push to add the purchase to the purchase history array.
         this.purchaseHistory.push(amount)
     }
 
@@ -109,3 +109,36 @@ vipCustomer1.addPurchase(250.75)
 
 //Getting the total spent by the VIP Customer.
 vipCustomer1.getTotalSpent()
+
+//Task 4 - Build a Client Report System
+
+
+//Creating a function that will generate a client report given a certain sales rep.
+function getClientReport(salesRep) {
+
+    //Adds up the total revenue generated from a sales rep's client list using reduce.
+    const totalRevenue = salesRep.clients.reduce((sum, client) => sum + client.getTotalSpent(), 0)
+    console.log(`Total Revenue from all clients: $${totalRevenue.toFixed(2)}`)
+
+    //Uses fiter and map to make a secondary array to sort and display only client that have spent over $500.
+    const bigSpenders = salesRep.clients.filter(client => client.getTotalSpent() > 500)
+    console.log(`Clients that have spent over $500:`, bigSpenders.map(client => client.name))
+
+    //Uses map in order to display the name and total spent by each client on the sales rep's client list.
+    //It does this by creating new objects with properties of name and total spent, which get filled by the clients values.
+    const customerSummary = salesRep.clients.map(client => ({ name: client.name, totalSpent: client.getTotalSpent().toFixed(2)}))
+    console.log(`Customer Summary:`, customerSummary)
+}
+
+//Creating a new VIP customer.
+const vipCustomer2 = new VIPCustomer("Josh Jacobs", "joshjacobs@gmail.com", "Gold")
+
+//Adding a purchase.
+vipCustomer2.addPurchase(300)
+
+//Adding the two VIP customers to sales rep's client array.
+salesRep1.addClient(vipCustomer1)
+salesRep1.addClient(vipCustomer2)
+
+//Getting a client report.
+getClientReport(salesRep1)
