@@ -22,6 +22,7 @@ class Customer {
     getTotalSpent() {
         const totalSpent = this.purchaseHistory.reduce((sum, amount) => sum + amount, 0)
         console.log(`${this.name} has spent a total of $${totalSpent.toFixed(2)}`)
+        return totalSpent
     }
 }
 
@@ -34,3 +35,45 @@ customer1.addPurchase(30.25)
 
 //Getting the total spent.
 customer1.getTotalSpent()
+
+//Task 2 - Create a SalesRep Class
+
+//Creating a new class SalesRep given a name.
+class SalesRep {
+    constructor (name) {
+        this.name = name //Sources name in the instance.
+        this.clients = [] //Sets up an empty array for the sales rep's clients.
+    }
+    
+    //Creating a method that adds a customer to a sales rep's client array using push and then console logs it.
+    addClient(customer) {
+        this.clients.push(customer)
+        console.log(`Client added - Name: ${customer.name}`)
+    }
+
+    //Calculates the clients total purchases.
+    getClientTotal(name) {
+
+        //Searches the client list for a string that is strictly equal to the name input into the function.
+        const client = this.clients.find(client => client.name === name)
+        if (client) {
+            
+            //If the client name is found it calls get total spent.
+            const totalPurchased = client.getTotalSpent()
+            console.log(`Total spent by ${name}: $${totalPurchased.toFixed(2)}`)
+
+            //If the client name is not found, the function returns, 'Client not found'.
+        } else {
+            console.log(`Client not found.`)
+        }
+    }
+}
+
+//Creating a new sales rep using the constructor.
+const salesRep1 = new SalesRep("Jane Smith")
+
+//Adding the existing customer to the sales rep's client list.
+salesRep1.addClient(customer1)
+
+//Getting the client total for the specified client.
+salesRep1.getClientTotal("John Doe")
