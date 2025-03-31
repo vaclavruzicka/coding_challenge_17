@@ -77,3 +77,35 @@ salesRep1.addClient(customer1)
 
 //Getting the client total for the specified client.
 salesRep1.getClientTotal("John Doe")
+
+//Task 3 - Create a VIPCustomer Class
+
+//Creating a VIP Customer class given a name, email,and VIP level.
+class VIPCustomer extends Customer {
+    constructor (name, email, vipLevel) {
+        super(name, email)
+        this.vipLevel = vipLevel
+
+        //Console logging the creation of a VIP customer.
+        console.log(`New VIP Customer Created: Name: ${this.name}, Email: ${this.email}, VIP Status: ${this.vipLevel} `)
+    }
+
+    //Overriding the original getTotalSpent() method so that a bonus can be added.
+    getTotalSpent() {
+        const baseTotal = super.getTotalSpent() //Calling the original method.
+        const bonusTotal = baseTotal * 1.1 //Adding a 10% loyalty bonus.
+        console.log(`VIP Customer ${this.name}'s total spent with bonus: $${bonusTotal.toFixed(2)}`)
+        return bonusTotal
+    }
+}
+
+
+//Creating a new customer using the constructor.
+const vipCustomer1 = new VIPCustomer("Bob Vance", "bobvance@vancerefrigeration.com", "Gold")
+
+//Adding purchases to the VIP Customer.
+vipCustomer1.addPurchase(350.50)
+vipCustomer1.addPurchase(250.75)
+
+//Getting the total spent by the VIP Customer.
+vipCustomer1.getTotalSpent()
